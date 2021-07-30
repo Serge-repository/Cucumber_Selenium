@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        //tags = {"@Home"},
+        tags = {"@Smoke"},
         features = "src/test/resources",
         glue = "cucumber_step_defs",
         plugin = {"pretty", "html:target/htmlreports"}
