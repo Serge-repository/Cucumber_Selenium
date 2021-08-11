@@ -13,4 +13,4 @@ Feature: Agile project sign in
     When user navigates to agile page
     And user enters username "111" and password "xyz"
     And click login button
-    Then unvalid credentials message is shown
+    Then invalid credentials message is shown

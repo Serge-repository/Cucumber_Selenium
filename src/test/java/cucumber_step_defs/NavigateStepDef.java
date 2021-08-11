@@ -42,13 +42,13 @@ public class NavigateStepDef extends TestBasis {
     @Then("welcome message is correct")
     public void welcomeMessageIsCorrect() {
         String message = driver.findElement(By.tagName("marquee")).getText();
-        assertEquals(message, "Welcome To Customer's Page of Guru99 Bank", "Welcome message is correct");
+        assertEquals(message, "Welcome To Customer's Page of Guru99 Bank", "Welcome message is positive");
     }
 
-    @Then("unvalid credentials message is shown")
-    public void unvalidCredentialsMessageIsShown() {
+    @Then("invalid credentials message is shown")
+    public void invalidCredentialsMessageIsShown() {
         String message = driver.switchTo().alert().getText();
-        assertEquals(message, "User or Password is not valid");
+        assertEquals(message, "User or Password is not valid", "Welcome message is negative");
     }
 
     @After
