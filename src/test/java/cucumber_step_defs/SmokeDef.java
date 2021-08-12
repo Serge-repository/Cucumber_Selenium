@@ -1,17 +1,45 @@
 package cucumber_step_defs;
 
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import pages.TestBasis;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class SmokeDef extends TestBasis {
+public class SmokeDef {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @Before
+    public void beforeScenario(Scenario scenario) {
+        if (scenario.getName().equals("User navigates to homePage")
+            || scenario.getName().equals("User can navigate to newToursPage")
+            || scenario.getName().equals("User can navigate to tablePage")){
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+            wait = new WebDriverWait(driver, 10);
+        }
+    }
+
+    @After
+    public void afterScenario(Scenario scenario) {
+        if (scenario.getName().equals("User navigates to homePage")
+            || scenario.getName().equals("User can navigate to newToursPage")
+            || scenario.getName().equals("User can navigate to tablePage")){
+            driver.quit();
+        }
+    }
+
     @Given("User is on homePage")
     public void userIsOnHomePage() {
         driver.navigate().to("http://demo.guru99.com/Agile_Project/Agi_V1/");
@@ -56,10 +84,5 @@ public class SmokeDef extends TestBasis {
     @And("table is present")
     public void tableIsPresent() {
         assertTrue(driver.findElement(By.xpath("//table")).isDisplayed());
-    }
-
-    @After
-    public void actionsAfter() {
-        driver.quit();
     }
 }

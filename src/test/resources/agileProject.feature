@@ -1,4 +1,4 @@
-@Smoke
+@Set
 Feature: Agile project sign in
 
   Scenario: Login as a authenticated user

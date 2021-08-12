@@ -1,16 +1,42 @@
 package cucumber_step_defs;
 
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import pages.TestBasis;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.testng.Assert.assertEquals;
 
-public class NavigateStepDef extends TestBasis {
+public class NavigateStepDef {
+
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @Before
+    public void beforeScenario(Scenario scenario) {
+        if (scenario.getName().equals("Login as a authenticated user")
+                || scenario.getName().equals("Unhappy login")){
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 10);
+        }
+    }
+
+    @After
+    public void afterScenario(Scenario scenario) {
+        if (scenario.getName().equals("Login as a authenticated user")
+                || scenario.getName().equals("Unhappy login")){
+        driver.quit();
+        }
+    }
 
     @Given("user is on home page")
     public void userIsOnHomePage() {
@@ -49,10 +75,5 @@ public class NavigateStepDef extends TestBasis {
     public void invalidCredentialsMessageIsShown() {
         String message = driver.switchTo().alert().getText();
         assertEquals(message, "User or Password is not valid", "Welcome message is negative");
-    }
-
-    @After
-    public void actionsAfter() {
-        driver.quit();
     }
 }

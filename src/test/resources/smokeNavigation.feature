@@ -1,7 +1,6 @@
-@Smoke
+@Lot
 Feature: Navigation to few pages is working
 
-  @HomePage
   Scenario: User navigates to homePage
     Given User is on homePage
     Then title of homePage is "Guru99 Bank Home Page"
