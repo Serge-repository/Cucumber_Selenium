@@ -1,43 +1,18 @@
 package cucumber_step_defs;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static cucumber_step_defs.RunnerTest.driver;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DragAndDropDef {
-
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        if (scenario.getName().equals("Put bank details into drag and drop form")){
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            wait = new WebDriverWait(driver, 10);
-        }
-    }
-
-    @After
-    public void afterScenario(Scenario scenario) {
-        if (scenario.getName().equals("Put bank details into drag and drop form")){
-            driver.quit();
-        }
-    }
 
     @Given("user is on dragAndDrop page")
     public void userIsOnDragAndDropPage() {
@@ -52,9 +27,9 @@ public class DragAndDropDef {
         Actions action = new Actions(driver);
         action.dragAndDrop(originBankElement, destinationBankElement).build().perform();
 
-        assertEquals(originBankElement.getText().trim(), elementText, "User drops BANK element");
-        assertTrue(driver.findElement(By.xpath("//ol[@id='bank']/li[@data-id='5']"))
-                .isDisplayed(), "Bank element is displayed in a table");
+        assertEquals("User drops BANK element", originBankElement.getText().trim(), elementText);
+        assertTrue("Bank element is displayed in a table", driver.findElement(By.xpath("//ol[@id='bank']/li[@data-id='5']"))
+                .isDisplayed());
     }
 
     @And("user drop debit amount {string}")
@@ -65,9 +40,9 @@ public class DragAndDropDef {
         Actions action = new Actions(driver);
         action.dragAndDrop(originDebit, destinationDebit).build().perform();
 
-        assertEquals(originDebit.getText().trim(), elementText, "User drops debit element");
+        assertEquals("User drops debit element", originDebit.getText().trim(), elementText);
         assertTrue(driver.findElement(By.xpath("//ol[@id='amt7']/li[@data-id='2']"))
-                .isDisplayed(), "Debit value displayed in a table");
+                .isDisplayed());
     }
 
     @And("user drop credit account {string}")
@@ -78,9 +53,9 @@ public class DragAndDropDef {
         Actions action = new Actions(driver);
         action.dragAndDrop(originSalesElement, destinationSalesElement).build().perform();
 
-        assertEquals(originSalesElement.getText().trim(), elementText, "User drops SALES element");
-        assertTrue(driver.findElement(By.xpath("//ol[@id='loan']/li[@data-id='6']"))
-                .isDisplayed(), "Sales element is displayed in a table");
+        assertEquals("User drops SALES element", originSalesElement.getText().trim(), elementText);
+        assertTrue("Sales element is displayed in a table", driver.findElement(By.xpath("//ol[@id='loan']/li[@data-id='6']"))
+                .isDisplayed());
     }
 
     @And("user drop credit amount {string}")
@@ -91,14 +66,14 @@ public class DragAndDropDef {
         Actions action = new Actions(driver);
         action.dragAndDrop(originCreditElement, destinationCreditElement).build().perform();
 
-        assertEquals(originCreditElement.getText().trim(), elementText, "User drops credit element");
-        assertTrue(driver.findElement(By.xpath("//ol[@id='amt8']/li[@data-id='2']"))
-                .isDisplayed(), "Credit value displayed in a table");
+        assertEquals("User drops credit element", originCreditElement.getText().trim(), elementText);
+        assertTrue("Credit value displayed in a table", driver.findElement(By.xpath("//ol[@id='amt8']/li[@data-id='2']"))
+                .isDisplayed());
     }
 
     @Then("success message is shown")
     public void successMessageIsShown() {
-        assertEquals(driver.findElement(By.xpath("(//a[@class='button button-green'])[1]"))
-                .getText(), "Perfect!", "Checking if Perfect! message appears");
+        assertEquals("Checking if Perfect! message appears", driver.findElement(By.xpath("(//a[@class='button button-green'])[1]"))
+                .getText(), "Perfect!");
     }
 }

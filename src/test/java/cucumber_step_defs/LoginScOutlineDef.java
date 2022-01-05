@@ -1,38 +1,21 @@
 package cucumber_step_defs;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.After;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.TestBasis;
 
-import static org.testng.Assert.assertEquals;
+import static cucumber_step_defs.RunnerTest.driver;
+import static org.junit.Assert.assertEquals;
 
-public class LoginScOutlineDef {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        if (scenario.getName().equals("Login as a authenticated user")){
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            wait = new WebDriverWait(driver, 10);
-        }
-    }
+public class LoginScOutlineDef extends TestBasis {
 
     @After
-    public void afterScenario(Scenario scenario) {
-        if (scenario.getName().equals("Login as a authenticated user")){
-            driver.quit();
-        }
+    public void afterScenario() {
+        driver.quit();
     }
 
     @Given("homepage opened")
@@ -49,8 +32,8 @@ public class LoginScOutlineDef {
     public void enterUsernameAndPassword(String username, String password) {
         driver.findElement(By.name("uid")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
-            assertEquals(username, "1303", "Checking username correctness");
-            assertEquals(password, "Guru99", "Checking password correctness");
+        assertEquals("Checking username correctness", username, "1303");
+        assertEquals("Checking password correctness", password, "Guru99");
     }
 
     @And("press login button")
@@ -61,6 +44,6 @@ public class LoginScOutlineDef {
     @Then("^welcome message should be ([^\"]*)$")
     public void welcomeMessageShouldBeExpectedMessage(String expectedMessage) {
         String message = driver.findElement(By.tagName("marquee")).getText();
-        assertEquals(message, expectedMessage, "Result message test");
+        assertEquals("Result message test", message, expectedMessage);
     }
 }

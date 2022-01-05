@@ -1,4 +1,4 @@
-@Some
+@DragDrop
 Feature: Drag and drop is working
 
   Scenario: Put bank details into drag and drop form

@@ -1,19 +1,14 @@
 package cucumber_step_defs;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.After;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.TestBasis;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -22,29 +17,16 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static cucumber_step_defs.RunnerTest.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
-public class FileUploadDef {
-
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        if (scenario.getName().equals("User can upload file on uploadFilePage")){
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            wait = new WebDriverWait(driver, 10);
-        }
-    }
+public class FileUploadDef extends TestBasis {
 
     @After
-    public void afterScenario(Scenario scenario) {
-        if (scenario.getName().equals("User can upload file on uploadFilePage")){
-            driver.quit();
-        }
+    public void afterScenario() {
+        driver.quit();
     }
 
     @Given("user is on uploadFilePage")
@@ -54,7 +36,7 @@ public class FileUploadDef {
 
     @And("title of page is {string}")
     public void titleOfPageIs(String pageTitle) {
-        assertEquals(pageTitle, driver.getTitle(), "Page title is File Upload Demo");
+        assertEquals("Page title is File Upload Demo", pageTitle, driver.getTitle());
     }
 
     @When("user click Choose File button")

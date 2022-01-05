@@ -1,4 +1,4 @@
-@Lot
+@Smoke
 Feature: Navigation to few pages is working
 
   Scenario: User navigates to homePage

@@ -1,42 +1,16 @@
 package cucumber_step_defs;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.TestBasis;
 
-import static org.testng.Assert.assertEquals;
+import static cucumber_step_defs.RunnerTest.driver;
+import static org.junit.Assert.assertEquals;
 
-public class NavigateStepDef {
-
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        if (scenario.getName().equals("Login as a authenticated user")
-                || scenario.getName().equals("Unhappy login")){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
-        }
-    }
-
-    @After
-    public void afterScenario(Scenario scenario) {
-        if (scenario.getName().equals("Login as a authenticated user")
-                || scenario.getName().equals("Unhappy login")){
-        driver.quit();
-        }
-    }
+public class NavigateStepDef extends TestBasis {
 
     @Given("user is on home page")
     public void userIsOnHomePage() {
@@ -53,8 +27,8 @@ public class NavigateStepDef {
         driver.findElement(By.name("uid")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
         if (username.equals("1303") && password.equals("Guru99")) {
-            assertEquals(username, "1303", "We enter correct username");
-            assertEquals(password, "Guru99", "We enter correct password");
+            assertEquals("We enter correct username", username, "1303");
+            assertEquals("We enter correct password", password, "Guru99");
         } else {
             System.out.println("Username or password is incorrect");
         }
@@ -68,12 +42,12 @@ public class NavigateStepDef {
     @Then("welcome message is correct")
     public void welcomeMessageIsCorrect() {
         String message = driver.findElement(By.tagName("marquee")).getText();
-        assertEquals(message, "Welcome To Customer's Page of Guru99 Bank", "Welcome message is positive");
+        assertEquals("Welcome message is positive", message, "Welcome To Customer's Page of Guru99 Bank");
     }
 
     @Then("invalid credentials message is shown")
     public void invalidCredentialsMessageIsShown() {
         String message = driver.switchTo().alert().getText();
-        assertEquals(message, "User or Password is not valid", "Welcome message is negative");
+        assertEquals("Welcome message is negative", message, "User or Password is not valid");
     }
 }

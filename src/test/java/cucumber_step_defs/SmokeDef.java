@@ -1,44 +1,17 @@
 package cucumber_step_defs;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.TestBasis;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static cucumber_step_defs.RunnerTest.driver;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class SmokeDef {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @Before
-    public void beforeScenario(Scenario scenario) {
-        if (scenario.getName().equals("User navigates to homePage")
-            || scenario.getName().equals("User can navigate to newToursPage")
-            || scenario.getName().equals("User can navigate to tablePage")){
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            wait = new WebDriverWait(driver, 10);
-        }
-    }
-
-    @After
-    public void afterScenario(Scenario scenario) {
-        if (scenario.getName().equals("User navigates to homePage")
-            || scenario.getName().equals("User can navigate to newToursPage")
-            || scenario.getName().equals("User can navigate to tablePage")){
-            driver.quit();
-        }
-    }
+public class SmokeDef extends TestBasis {
 
     @Given("User is on homePage")
     public void userIsOnHomePage() {
@@ -47,7 +20,7 @@ public class SmokeDef {
 
     @Then("title of homePage is {string}")
     public void titleOfHomePageIs(String pageTitle) {
-        assertEquals(pageTitle, driver.getTitle(), "Home page title is Guru99 Bank Home Page");
+        assertEquals("Home page title is Guru99 Bank Home Page", pageTitle, driver.getTitle());
     }
 
     @And("login form is present")
@@ -62,7 +35,7 @@ public class SmokeDef {
 
     @Then("title of newToursPage is {string}")
     public void titleOfNewToursPageIs(String pageTitle) {
-        assertEquals(pageTitle, driver.getTitle(), "Title must be Welcome: Mercury Tours");
+        assertEquals("Title must be Welcome: Mercury Tours", pageTitle, driver.getTitle());
     }
 
     @And("main fragment is present")
@@ -78,7 +51,7 @@ public class SmokeDef {
 
     @Then("title of tablePage is {string}")
     public void titleOfTablePageIsCorrect(String tabName) {
-        assertEquals(tabName, driver.getTitle(), "Title of the page is correct");
+        assertEquals("Title of the page is correct", tabName, driver.getTitle());
     }
 
     @And("table is present")
