@@ -8,7 +8,6 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
-import pages.TestBasis;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -17,12 +16,13 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static cucumber_step_defs.RunnerTest.*;
+import static cucumber_step_defs.RunnerTest.driver;
+import static cucumber_step_defs.RunnerTest.wait;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
-public class FileUploadDef extends TestBasis {
+public class FileUploadDef {
 
     @After
     public void afterScenario() {

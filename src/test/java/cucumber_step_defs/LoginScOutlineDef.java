@@ -6,12 +6,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import pages.TestBasis;
 
 import static cucumber_step_defs.RunnerTest.driver;
 import static org.junit.Assert.assertEquals;
 
-public class LoginScOutlineDef extends TestBasis {
+public class LoginScOutlineDef {
 
     @After
     public void afterScenario() {
@@ -28,7 +27,7 @@ public class LoginScOutlineDef extends TestBasis {
         driver.findElement(By.xpath("//a[contains(@href,'Agile_Project')]")).click();
     }
 
-    @And("^enter ([^\"]*) and ([^\"]*)$")
+    @And("^enter (\\d+) and ([^\"]*)$")     // ([^"]*) - текст ||   (\\d+) - числа
     public void enterUsernameAndPassword(String username, String password) {
         driver.findElement(By.name("uid")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);

@@ -5,13 +5,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import pages.TestBasis;
 
 import static cucumber_step_defs.RunnerTest.driver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class SmokeDef extends TestBasis {
+public class SmokeDef {
 
     @Given("User is on homePage")
     public void userIsOnHomePage() {

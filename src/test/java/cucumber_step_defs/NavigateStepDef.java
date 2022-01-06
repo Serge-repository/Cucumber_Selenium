@@ -5,12 +5,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import pages.TestBasis;
 
 import static cucumber_step_defs.RunnerTest.driver;
 import static org.junit.Assert.assertEquals;
 
-public class NavigateStepDef extends TestBasis {
+public class NavigateStepDef {
 
     @Given("user is on home page")
     public void userIsOnHomePage() {

@@ -13,8 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         tags = "@Smoke, @DragDrop, @Set",           //указав тег, можем тут же запускать через TestRunner
-        features = "src/test/resources",
-        glue = "cucumber_step_defs",
+        features = "src/test/resources", // Можно указать несколько папок, например: features = {«src/test/features», «src/test/feat»}
+        glue = "cucumber_step_defs",  // Можно указать несколько пакетов, например, так: glue = {«ru.savkk.test», «ru.savkk.hooks»}
         plugin = {"pretty", "html:target/htmlreports"}
 )
 
