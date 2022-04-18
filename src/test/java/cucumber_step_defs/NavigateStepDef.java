@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 
-import static cucumber_step_defs.RunnerTest.driver;
+import static cucumber_step_defs.DriverInitializer.driver;
 import static org.junit.Assert.assertEquals;
 
 public class NavigateStepDef {
